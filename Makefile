@@ -1,13 +1,15 @@
 LIBS=-lpcre -lcrypto -lm -lpthread
-CFLAGS=-ggdb -O3 -Wall -isystem/opt/local/include -D WHITH_PKCS5_PBKDF2_HMAC=1 -D MAVERICKS=1
+CFLAGS=-ggdb -O3 -Wall -isystem/opt/local/include -D WHITH_PKCS5_PBKDF2_HMAC=1 
 OBJS=vanitygen.o oclvanitygen.o oclvanityminer.o oclengine.o keyconv.o pattern.o util.o
 PROGS=vanitygen keyconv oclvanitygen oclvanityminer
 
 PLATFORM=$(shell uname -s)
 ifeq ($(PLATFORM),Darwin)
 OPENCL_LIBS=-framework OpenCL
+$(CFLAGS)=$(CFLAGS) -D MAVERICKS=1
 else
 OPENCL_LIBS=-lOpenCL
+$(CFLAGS)=$(CFLAGS) -D MAVERICKS=0
 endif
 
 
