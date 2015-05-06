@@ -4,3 +4,5 @@ keyconv
 oclvanitygen
 oclvanityminer
 vanitygen
+*.sublime-project
+*.sublime-workspace
