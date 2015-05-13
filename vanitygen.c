@@ -249,20 +249,7 @@ out:
 int
 count_processors(void)
 {
-	int nCpu = 0;
-	size_t len = sizeof (nCpu);
-	const int retstat = sysctlbyname ("hw.logicalcpu", &nCpu, &len, NULL, 0);
-	if ( retstat < 0 ) {
-		perror("sysctl hw.logicalcpu failed: wrong retstat");
-		exit( EXIT_FAILURE );
-	}
-	if (len != sizeof (nCpu)){
-		perror("sysctl hw.logicalcpu failed: wrong len");
-		exit( EXIT_FAILURE );
-	}
-	fprintf(stderr, "hw.logicalcpu: %d;\n", nCpu);
-
-	return nCpu;
+	return sysconf( _SC_NPROCESSORS_ONLN );
 }
 #else
 int
