@@ -1677,7 +1677,7 @@ vg_regex_context_add_patterns(vg_context_t *vcp,
 			pcre_study(vcrp->vcr_regex[nres], 0, &pcre_errptr);
 		if (pcre_errptr) {
 			fprintf(stderr, "Regex error: %s\n", pcre_errptr);
-			pcre_free(vcrp->vcr_regex[nres]);
+			free(vcrp->vcr_regex[nres]);
 			continue;
 		}
 		vcrp->vcr_regex_pat[nres] = patterns[i];
@@ -1699,8 +1699,8 @@ vg_regex_context_clear_all_patterns(vg_context_t *vcp)
 	int i;
 	for (i = 0; i < vcrp->base.vc_npatterns; i++) {
 		if (vcrp->vcr_regex_extra[i])
-			pcre_free(vcrp->vcr_regex_extra[i]);
-		pcre_free(vcrp->vcr_regex[i]);
+			free(vcrp->vcr_regex_extra[i]);
+		free(vcrp->vcr_regex[i]);
 	}
 	vcrp->base.vc_npatterns = 0;
 	vcrp->base.vc_npatterns_start = 0;
@@ -1803,9 +1803,9 @@ restart_loop:
 		}
 
 		if (vcrp->base.vc_remove_on_match) {
-			pcre_free(vcrp->vcr_regex[i]);
+			free(vcrp->vcr_regex[i]);
 			if (vcrp->vcr_regex_extra[i])
-				pcre_free(vcrp->vcr_regex_extra[i]);
+				free(vcrp->vcr_regex_extra[i]);
 			nres -= 1;
 			vcrp->base.vc_npatterns = nres;
 			if (!nres) {
